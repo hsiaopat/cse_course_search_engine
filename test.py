@@ -4,7 +4,7 @@ import pymongo
 import pprint
 
 def retrieve_db():
-	
+	#hi
 	cse_db = client["cse_courses"]
 	cse_coll = cse_db["cse_collections"]
 	return cse_coll
