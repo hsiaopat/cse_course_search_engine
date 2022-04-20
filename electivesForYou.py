@@ -2,6 +2,7 @@
 
 def keywordSearch(collection, keywordString, coursesTakenList):
 	electives = []
+	print('hello')
 	#linear search through database
 	#if prereqs are in coursesTakenList OR prereqs = NONE
 		#if keyword matches with title
@@ -10,4 +11,3 @@ def keywordSearch(collection, keywordString, coursesTakenList):
 			#append title key to electives
 
 	return electives
-
