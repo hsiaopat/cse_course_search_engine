@@ -10,16 +10,23 @@ def retrieve_db():
 	return cse_coll
 
 def search_keyword(keyword, cse_coll):
+
+	found_keyword = []
+
 	for doc in cse_coll.find():
 		if keyword in doc["description"].lower():
-			print(f'{doc["department"]} {doc["number"]} {doc["title"]}');
+			found_keyword.append(doc)
 		elif keyword in doc["title"].lower():
-			print(f'{doc["department"]} {doc["number"]} {doc["title"]}');
+			found_keyword.append(doc)
+
+	return found_keyword
 
 def main():
 	cse_coll = retrieve_db()
 	keyword = "machine learning"
-	search_keyword(keyword, cse_coll)
+	found_keyword = search_keyword(keyword, cse_coll)
+	for course in found_keyword:
+		print(f'{course["title"]}')
 
 if __name__ == '__main__':
 	main()
