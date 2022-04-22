@@ -16,9 +16,8 @@ def initRequired(cse_coll): #create dictionary for required courses
 	for doc in cse_coll.find():
 		#append all titles with type required with a taken value of 0
 		if doc["type"] == "Required":
-			name = doc["title"]
-			print(name)
-			requiredDict[name].append(0)
+			name = doc["title"]	
+			requiredDict.update({name:0})
 	return requiredDict
 			
 def initElective(cse_coll): #create dictionary for elective courses
@@ -27,17 +26,24 @@ def initElective(cse_coll): #create dictionary for elective courses
 	for doc in cse_coll.find():
 		#append all titles with type electives with a taken value of 0
 		if doc["type"] == "Elective":
-			electiveDict[doc["title"]].append(0)
+			name = doc["title"]
+			electiveDict.update({name:0})
 	return electiveDict
 
 def reqCourseTakenSearch(cse_coll,classTaken, requiredDict):#cse_coll is collection, classTaken is input String
 	reqTakenList = []
+	count = 0
 	#loop thru collection
 	for doc in cse_coll.find():
 		#if classtaken is in dictionary, append the title to classtakenList, set taken value to 1 and then return classTakenList
-		if classTaken in requiredDict.keys():
+		if classTaken.lower() in doc["title"].lower():
 			requiredDict[classTaken] = 1
-			reqTakenList.append(classTaken)
+		elif classTaken in doc["number"]:
+			requiredDict[doc["title"]] = 1
+			name = doc["title"]
+	for key,value in requiredDict.items():
+		if(value == 1):
+			reqTakenList.append(key)
 	return reqTakenList
 
 def electiveTakenSearch(cse_coll,classTaken, electiveDict):
@@ -55,17 +61,23 @@ def main():
 	requiredDict = {}
 	electiveDict = {}
 	requiredDict = initRequired(cse_coll)
+	print(requiredDict)
 	electiveDict = initElective(cse_coll)
-	search = "error"
-	if search not in requiredDict.keys() and search not in electiveDict.keys():
-		print("uh oh")
-		return 1
-	reqTakenList = reqCourseTakenSearch(cse_coll,search,requiredDict)
-	electiveTakenList = electiveTakenSearch(cse_coll,search,electiveDict)
+	search = "20289,20221, Data Structures"
+	userInput = search.split(",")
+	for course in userInput:
+		course = course.strip()
+#	if search not in requiredDict.keys() and search not in electiveDict.keys():
+#		print("uh oh")
+#		return 1
 	
-	print('\n'.join(reqTakenList))
+		reqTakenList = reqCourseTakenSearch(cse_coll,course,requiredDict)
+		print(requiredDict)
+		electiveTakenList = electiveTakenSearch(cse_coll,course,electiveDict)
+	
+	print(reqTakenList)
 
-	print('\n'.join(electiveTakenList))
+	#print('\n'.join(electiveTakenList))
 
 	
 	
