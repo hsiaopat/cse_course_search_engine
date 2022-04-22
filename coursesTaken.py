@@ -16,10 +16,10 @@ def initRequired(cse_coll): #create dictionary for required courses
 	for doc in cse_coll.find():
 		#append all titles with type required with a taken value of 0
 		if doc["type"] == "Required":
-			name = doc["title"]	
+			name = doc["title"]
 			requiredDict.update({name:0})
 	return requiredDict
-			
+
 def initElective(cse_coll): #create dictionary for elective courses
 	#go thru each hashmap in collection
 	electiveDict = {}
@@ -40,7 +40,6 @@ def reqCourseTakenSearch(cse_coll,classTaken, requiredDict):#cse_coll is collect
 			requiredDict[classTaken] = 1
 		elif classTaken in doc["number"] and doc["title"] in requiredDict:
 			requiredDict[doc["title"]] = 1
-			name = doc["title"]
 	for key,value in requiredDict.items():
 		if(value == 1):
 			reqTakenList.append(key)
@@ -55,7 +54,6 @@ def electiveTakenSearch(cse_coll,classTaken, electiveDict):
 			electiveDict[classTaken] = 1
 		elif classTaken in doc["number"] and doc["title"] in electiveDict:
 			electiveDict[doc["title"]] = 1
-			name = doc["title"]
 	for key,value in electiveDict.items():
 		if(value == 1):
 			electiveTakenList.append(key)
@@ -67,23 +65,23 @@ def main():
 	electiveDict = {}
 	requiredDict = initRequired(cse_coll)
 	electiveDict = initElective(cse_coll)
-	search = "20289,20221, Data Science"
+	search = "20289, 20221, Data Science"
 	userInput = search.split(",")
 	for course in userInput:
 		course = course.strip()
 	#if search not in requiredDict.keys() and search not in electiveDict.keys():
 	#	print("uh oh")
 	#	return 1
-	
+
 		reqTakenList = reqCourseTakenSearch(cse_coll,course,requiredDict)
 		electiveTakenList = electiveTakenSearch(cse_coll,course,electiveDict)
-	
+
 	print(reqTakenList)
 	print(electiveTakenList)
 
-	
-	
-	
+
+
+
 if __name__ == '__main__':
 	main()
 
