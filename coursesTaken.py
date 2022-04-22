@@ -36,9 +36,9 @@ def reqCourseTakenSearch(cse_coll,classTaken, requiredDict):#cse_coll is collect
 	#loop thru collection
 	for doc in cse_coll.find():
 		#if classtaken is in dictionary, append the title to classtakenList, set taken value to 1 and then return classTakenList
-		if classTaken.lower() in doc["title"].lower():
+		if classTaken.lower() in doc["title"].lower() and doc["title"] in requiredDict:
 			requiredDict[classTaken] = 1
-		elif classTaken in doc["number"]:
+		elif classTaken in doc["number"] and doc["title"] in requiredDict:
 			requiredDict[doc["title"]] = 1
 			name = doc["title"]
 	for key,value in requiredDict.items():
@@ -51,9 +51,14 @@ def electiveTakenSearch(cse_coll,classTaken, electiveDict):
 	#loop thru collection
 	for doc in cse_coll.find():
 		#if classTaken in dict, append dictionary.key() to electiveTakenList and in hashmap for electives, set taken value to 0
-		if classTaken in electiveDict.keys():
+		if classTaken.lower() in doc["title"].lower() and doc["title"] in electiveDict:
 			electiveDict[classTaken] = 1
-			electiveTakenList.append(classTaken)
+		elif classTaken in doc["number"] and doc["title"] in electiveDict:
+			electiveDict[doc["title"]] = 1
+			name = doc["title"]
+	for key,value in electiveDict.items():
+		if(value == 1):
+			electiveTakenList.append(key)
 	return electiveTakenList
 
 def main():
@@ -61,23 +66,20 @@ def main():
 	requiredDict = {}
 	electiveDict = {}
 	requiredDict = initRequired(cse_coll)
-	print(requiredDict)
 	electiveDict = initElective(cse_coll)
-	search = "20289,20221, Data Structures"
+	search = "20289,20221, Data Science"
 	userInput = search.split(",")
 	for course in userInput:
 		course = course.strip()
-#	if search not in requiredDict.keys() and search not in electiveDict.keys():
-#		print("uh oh")
-#		return 1
+	#if search not in requiredDict.keys() and search not in electiveDict.keys():
+	#	print("uh oh")
+	#	return 1
 	
 		reqTakenList = reqCourseTakenSearch(cse_coll,course,requiredDict)
-		print(requiredDict)
 		electiveTakenList = electiveTakenSearch(cse_coll,course,electiveDict)
 	
 	print(reqTakenList)
-
-	#print('\n'.join(electiveTakenList))
+	print(electiveTakenList)
 
 	
 	
