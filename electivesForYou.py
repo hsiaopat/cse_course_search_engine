@@ -47,15 +47,16 @@ def checkPrereq(found_keyword, takenDict):
 
 	for course in found_keyword:
 		try:
-			available = True
+			available = False
 			for prereq in course["prerequisites"]:
 				if not isinstance(prereq, str):
 					for orPrereq in prereq:
-						if takenDict[orPrereq] == 0:
-							available = False
+						if takenDict[orPrereq] == 1:
+							available = True
+							break
 				else:
-					if takenDict[prereq] == 0:
-						available = False
+					if takenDict[prereq] == 1:
+						available = True
 
 			if available:
 				availableElectives.append(course)
