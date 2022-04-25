@@ -2,15 +2,15 @@
 import pymongo
 import pprint
 
-#retrieve info from database
+#Retrieve info from database
 def retrieve_db():
 	client = pymongo.MongoClient("mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
 	cse_db = client["cse_courses"]
 	cse_coll = cse_db["cse_collections"]
 	return cse_coll
-#search
 
-def initRequired(cse_coll): #create dictionary for required courses
+#Create dictionary for required courses
+def initRequired(cse_coll):
 	#go thru each hashmap in collection
 	requiredDict = {}
 	for doc in cse_coll.find():
@@ -20,7 +20,8 @@ def initRequired(cse_coll): #create dictionary for required courses
 			requiredDict.update({name:0})
 	return requiredDict
 
-def initElective(cse_coll): #create dictionary for elective courses
+#Create dictionary for elective courses
+def initElective(cse_coll): 
 	#go thru each hashmap in collection
 	electiveDict = {}
 	for doc in cse_coll.find():
@@ -30,8 +31,8 @@ def initElective(cse_coll): #create dictionary for elective courses
 			electiveDict.update({name:0})
 	return electiveDict
 
-def reqCourseTakenSearch(cse_coll,classTaken, requiredDict):#cse_coll is collection, classTaken is input String
-	reqTakenList = []
+#Search through database for required courses listed in user input, update dictionary 
+def reqCourseTakenSearch(cse_coll, classTaken, requiredDict):
 	count = 0
 	#loop thru collection
 	for doc in cse_coll.find():
@@ -40,13 +41,15 @@ def reqCourseTakenSearch(cse_coll,classTaken, requiredDict):#cse_coll is collect
 			requiredDict[classTaken] = 1
 		elif classTaken in doc["number"] and doc["title"] in requiredDict:
 			requiredDict[doc["title"]] = 1
+	'''
 	for key,value in requiredDict.items():
 		if(value == 1):
 			reqTakenList.append(key)
-	return reqTakenList
+	'''
+	return requiredDict
 
-def electiveTakenSearch(cse_coll,classTaken, electiveDict):
-	electiveTakenList = []
+#Search through database for elective courses listed in user input, update dictionary
+def electiveTakenSearch(cse_coll, classTaken, electiveDict):
 	#loop thru collection
 	for doc in cse_coll.find():
 		#if classTaken in dict, append dictionary.key() to electiveTakenList and in hashmap for electives, set taken value to 0
@@ -54,30 +57,48 @@ def electiveTakenSearch(cse_coll,classTaken, electiveDict):
 			electiveDict[classTaken] = 1
 		elif classTaken in doc["number"] and doc["title"] in electiveDict:
 			electiveDict[doc["title"]] = 1
+	'''
 	for key,value in electiveDict.items():
 		if(value == 1):
 			electiveTakenList.append(key)
-	return electiveTakenList
+	'''
+	return electiveDict
 
+#Main function
 def main():
 	cse_coll = retrieve_db()
-	requiredDict = {}
-	electiveDict = {}
 	requiredDict = initRequired(cse_coll)
 	electiveDict = initElective(cse_coll)
 	search = "20289, 20221, Data Science"
 	userInput = search.split(",")
 	for course in userInput:
 		course = course.strip()
+	
 	#if search not in requiredDict.keys() and search not in electiveDict.keys():
 	#	print("uh oh")
 	#	return 1
+	
 
-		reqTakenList = reqCourseTakenSearch(cse_coll,course,requiredDict)
-		electiveTakenList = electiveTakenSearch(cse_coll,course,electiveDict)
+		requiredDict = reqCourseTakenSearch(cse_coll,course,requiredDict)
+		electiveDict = electiveTakenSearch(cse_coll,course,electiveDict)
 
-	print(reqTakenList)
-	print(electiveTakenList)
+	print("Taken:")
+	for course in requiredDict:
+		if requiredDict[course] == 1:
+			print(course)
+
+	print("\nNeed to take:")
+	for course in requiredDict:
+		if requiredDict[course] == 0:
+			print(course)
+
+	print("\nUntaken electives:")
+	for course in electiveDict:
+		if electiveDict[course] == 0:
+			print(course)
+
+	#pprint.pprint(requiredDict)
+	#pprint.pprint(electiveDict)
 
 
 
