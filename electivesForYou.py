@@ -85,7 +85,6 @@ def checkPrereq(foundKeyword, takenDict):
 
 	return availableElectives
 
-
 def main():
 	# retrieve database of course entries
 	cseColl = retrieveDB()
@@ -119,7 +118,6 @@ def main():
 	availableElectives = checkPrereq(foundKeyword, takenDict)
 	for course in availableElectives:
 		print(f'{course["title"]}')
-
 
 if __name__ == '__main__':
 	main()
