@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>CSE COURSE SEARCH ENGINE</title>
+	</head>
+
+	<body>
+		<!--send info from here to python code-->
+		<form action="/" method="POST">
+		<!--search for course taken-->
+		<h1><center><label for="courseInput">Enter courses taken (title or number):</label>
+			<input id="courseInput" size="4" placeholder="i.e. Data Structures, 20312, etc." style="height:50px; width: 500px;" type="text" maxlength="100" minlength="1" name="courseInput"></input>
+		</center></h1>
+		<!--keyword search-->
+		<h1><center><label for="keywordInput">Enter keywords:</label>
+			<input id="keywordInput" size="4" placeholder="i.e. Machine Learning, 20312, etc." style="height:50px; width: 500px;" type="text" maxlength="100" minlength="1" name="keywordInput"></input>
+		</center></h1>
+		<!--submit button for keyword search-->
+		<div><center>
+			<button name=keywordSubmit" id = "keywordSub" type="submit" title="SEARCH">SEARCH</button>
+		</center></div>
+		</form>
+		
+		<!--containers for classes display-->
+		<!--first two containers are in one row so we are putting in the same class-->
+		<div class="req" id="target" >
+			<div class="container">
+				{% for key,value in requiredDict.items %}
+					{% if value==1 %}
+						<h2>{{key}}</h2>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<div class="container">
+				{% for key, value in requiredDict.items %}
+					{% if value==0 %}
+						<h2>{{key}}</h2>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<!--last container is on its own-->
+		<div class="electives" id="target">
+			<div class="container">
+				{% for i in electivesAvailable %}
+					<h2>{{i}}</h2>
+				{% endfor %} 
+			</div>
+	</body>
+</html>
