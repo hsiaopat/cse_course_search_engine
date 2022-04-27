@@ -11,37 +11,37 @@
 		<h1><center><label for="courseInput">Enter courses taken (title or number):</label>
 			<input id="courseInput" size="4" placeholder="i.e. Data Structures, 20312, etc." style="height:50px; width: 500px;" type="text" maxlength="100" minlength="1" name="courseInput"></input>
 		</center></h1>
-		<!--submit button for course taken-->
-		<div>
-			<button name="courseTakenSubmit" id = "takenSub" type="submit" title="SEARCH">SEARCH</button>
-		</div>
 		<!--keyword search-->
 		<h1><center><label for="keywordInput">Enter keywords:</label>
 			<input id="keywordInput" size="4" placeholder="i.e. Machine Learning, 20312, etc." style="height:50px; width: 500px;" type="text" maxlength="100" minlength="1" name="keywordInput"></input>
 		<!--submit button for keyword search-->
-		<div>
+		<div><center>
 			<button name="keywordSubmit" id = "keywordSub" type="submit" title="SEARCH">SEARCH</button>
-		</div>
+		</center></div>
+		</form>
 
 		<!--containers for classes display-->
 		<!--first two containers are in one row so we are putting in the same class-->
 		<div class="req" id="target" >
+			<h1><center>Required Courses Taken:</center></h1>
 			<div class="container">
 				{% for course in taken %}
-					<h2>{{course}}</h2>
+					<p>{{course}}</p>
 				{% endfor %}
 			</div>
+			<h1><center>Required Courses Remaining:</center></h1>
 			<div class="container">
 				{% for course in remaining %}
-					<h2>{{course}}</h2>
+					<p>{{course}}</p>
 				{% endfor %}
 			</div>
 		</div>
 		<!--last container is on its own-->
 		<div class="electives" id="target">
+			<h1><center>Electives for You:</center></h1>
 			<div class="container">
-				{% for course in electives %}
-					<h2>{{course}}</h2>
+				{% for course in electivesAvailable %}
+					<p>{{course}}</p>
 				{% endfor %}
 			</div>
 	</body>
