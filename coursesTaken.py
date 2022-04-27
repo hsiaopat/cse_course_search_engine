@@ -43,11 +43,6 @@ def reqCourseTakenSearch(cse_coll, classTaken, requiredDict):
 			requiredDict[classTaken] = 1
 		elif classTaken in doc["number"] and doc["title"] in requiredDict:
 			requiredDict[doc["title"]] = 1
-	'''
-	for key,value in requiredDict.items():
-		if(value == 1):
-			reqTakenList.append(key)
-	'''
 
 	return requiredDict
 
