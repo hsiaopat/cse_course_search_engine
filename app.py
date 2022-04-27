@@ -3,7 +3,6 @@ import os
 import sys
 from flask import Flask, render_template, request
 import pymongo
-import pprint
 
 app = Flask(__name__)
 
@@ -163,7 +162,6 @@ def index():
 	electives = []
 
 	if request.method == "GET": #GET request is sent when html wants some information from python backend
-
 		return render_template("index.html", taken=requiredTaken, remaining=requiredRemaining, electivesAvailable=electives)
 
 	if request.method == "POST": #POST request is when the webpage is sending data to python backend
