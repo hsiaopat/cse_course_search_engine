@@ -7,38 +7,39 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 
 # retrieve info from database
-def retrieve_db():
-	# make request
-	client = PyMongo(app,"mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
-	client_db = client.db
-	db = client_db["cse_courses"]
-	# access database
-	#db = client["cse_courses"]
-	# access collection
-	cse_coll = db
-
-	return cse_coll
-	#return jsonify([todo for todo in todos])
+#def retrieve_db():
+#	# make request
+#	client = PyMongo(app,"mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
+#	client_db = client.db
+#	db = client_db["cse_courses"]
+#	# access database
+#	#db = client["cse_courses"]
+#	# access collection
+#	cse_coll = db
+#
+#	return cse_coll
+#	#return jsonify([todo for todo in todos])
 
 
 
 @app.route("/",methods=["POST","GET"])
 # retrieve info from database
-#def retrieve_db():
-#	# make request
-#	client = PyMongo(app,uri="mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
-#	db = client.db
+def retrieve_db():
+	# make request
+	client = PyMongo(app,uri="mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
+	db = client.db
 	# access database
-	#cse_db = client["cse_courses"]
+	cse_db = db["cse_courses"]
 	# access collection
-	#cse_coll = cse_db["cse_collections"]
-
+	cse_coll = cse_db["cse_collections"]
+	cseDocs = cse_coll.find()
 
 #	#return cse_coll
 #	todos = db.todos.find()
 #	print(todos)
-#	return jsonify([todo for todo in todos])
+	return cseDocs #jsonify([cseDoc for cseDoc in cseDocs])
 
+#@app.route("/",methods=["POST","GET"])
 def index():
 
 	cseColl = retrieve_db()
@@ -53,6 +54,7 @@ def index():
 	electives = []
 
 	if request.method == "GET": #GET request is sent when html wants some information from python backend
+		print(cseColl)
 		return render_template("index.html", taken=requiredTaken, remaining=requiredRemaining, electivesAvailable=electives)
 
 	if request.method == "POST": #POST request is when the webpage is sending data to python backend
