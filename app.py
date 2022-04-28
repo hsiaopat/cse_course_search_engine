@@ -164,6 +164,7 @@ def findElectives(courseInput, keywordInput, cseColl, takenDict):
 
 	return electives
 
+# connect to server with Flask
 @app.route("/",methods=["POST","GET"])
 def index():
 	# retrieve database from Mongo
