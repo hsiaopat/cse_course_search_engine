@@ -17,6 +17,9 @@ def retrieveDB():
 
 	return cseColl
 
+
+### REQUIRED COURSE OUTPUT ###
+
 # create dictionary for required courses
 def initRequired(cse_coll):
 	requiredDict = {}
@@ -41,6 +44,8 @@ def reqCourseTakenSearch(cse_coll, classTaken, requiredDict):
 
 	return requiredDict
 
+
+### ELECTIVE COURSE OUTPUT ###
 
 # initialize dictionary to track taken courses
 def initTaken(cseColl):
@@ -114,13 +119,18 @@ def checkPrereq(foundKeyword, takenDict):
 
 	return availableElectives
 
-def findRequired(courseInput, cseColl, requiredDict):
 
+### CONNECT ALGORITHMS TO FLASK ###
+
+# required course output
+def findRequired(courseInput, cseColl, requiredDict):
+	# update taken dictionary for required courses based on user input
 	for course in courseInput:
 		course = course.strip()
 		if not course == "":
 			requiredDict = reqCourseTakenSearch(cseColl, course, requiredDict)
 
+	# create taken and remaining course lists based on updated dictionary
 	requiredTaken = []
 	requiredRemaining = []
 	for course, taken in requiredDict.items():
@@ -131,19 +141,23 @@ def findRequired(courseInput, cseColl, requiredDict):
 
 	return requiredTaken, requiredRemaining
 
+# elective course input
 def findElectives(courseInput, keywordInput, cseColl, takenDict):
-
+	# update taken dictionary based on user input
 	for course in courseInput:
 		course = course.strip()
 		takenDict = courseTakenSearch(cseColl, course, takenDict)
 
+	# create list of dictionaries for courses that match with keyword input
 	foundKeyword = []
 	for key in keywordInput:
 		key = key.strip()
 		foundKeyword = searchKeyword(key, cseColl, foundKeyword)
 
+	# check prereq requirements of found courses
 	availableElectives = checkPrereq(foundKeyword, takenDict)
 
+	# create electives course list
 	electives = []
 	for course in availableElectives:
 		electives.append(course["title"])
@@ -152,28 +166,34 @@ def findElectives(courseInput, keywordInput, cseColl, takenDict):
 
 @app.route("/",methods=["POST","GET"])
 def index():
-
+	# retrieve database from Mongo
 	cseColl = retrieveDB()
+
+	# initialize dictionaries to track user's taken courses
 	takenDict = initTaken(cseColl)
 	requiredDict = initRequired(cseColl)
 
+	# initialize empty lists for HTML output
 	requiredTaken = []
 	requiredRemaining = []
 	electives = []
 
-	if request.method == "GET": #GET request is sent when html wants some information from python backend
+	# GET request is sent when html wants some information from python backend
+	if request.method == "GET":
 		return render_template("index.html", taken=requiredTaken, remaining=requiredRemaining, electivesAvailable=electives)
 
-	if request.method == "POST": #POST request is when the webpage is sending data to python backend
-
+	# POST request is when the webpage is sending data to python backend
+	if request.method == "POST":
+		# user input for courses taken
 		courseInput = request.form.get("courseInput")
 		courseInput = courseInput.split(",")
 
+		# user input for keyword search
 		keywordInput = request.form.get("keywordInput")
 		keywordInput = keywordInput.split(",")
 
+		# call functions to create display lists
 		requiredTaken, requiredRemaining = findRequired(courseInput, cseColl, requiredDict)
 		electives = findElectives(courseInput, keywordInput, cseColl, takenDict)
-
 
 	return render_template("index.html", taken=requiredTaken, remaining=requiredRemaining, electivesAvailable=electives)
