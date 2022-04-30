@@ -9,11 +9,17 @@ def retrieve_db():
 	cse_coll = cse_db["cse_collections"]
 	return cse_coll
 
+def search_keyword(keyword, cse_coll):
+	for doc in cse_coll.find():
+		if keyword in doc["description"].lower():
+			print(f'{doc["department"]} {doc["number"]} {doc["title"]}');
+		elif keyword in doc["title"].lower():
+			print(f'{doc["department"]} {doc["number"]} {doc["title"]}');
+
 def main():
 	cse_coll = retrieve_db()
-	for doc in cse_coll.find():
-		print(f'{doc["department"]} {doc["number"]} {doc["title"]}');
+	keyword = "machine learning"
+	search_keyword(keyword, cse_coll)
 
 if __name__ == '__main__':
 	main()
-	
