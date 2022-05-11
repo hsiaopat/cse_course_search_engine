@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>About our Project!</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Russo+One&display=swap" rel="stylesheet">
+	</head>
+
+
+	<body>
+		<div class="greeting wrapper">
+			<h1><center>ABOUT</center></h1>	
+		</div>
+
+		<div id="mySidenav" class="sidenav">
+			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="Home">About</a>
+			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="creators">Meet the Creators!</a>
+			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="process">Project Process</a>
+			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="final">Final Article</a>
+		</div>
+
+		<br>
+		</br>
+
+		<!--send info from here to python code-->
+		<form action="/" method="POST">
+		<!--search for course taken-->
+		<h1><center><label for="courseInput">Enter courses taken (title or number):</label>
+			<input id="courseInput" size="4" placeholder="i.e. Data Structures, 20312, etc." style="height:50px; width: 500px;" type="text" maxlength="100" minlength="1" name="courseInput"></input>
+		</center></h1>
+		<!--keyword search-->
+		<h1><center><label for="keywordInput">Enter keywords:</label>
+			<input id="keywordInput" size="4" placeholder="i.e. Machine Learning, 20312, etc." style="height:50px; width: 500px;" type="text" maxlength="100" minlength="1" name="keywordInput"></input>
+		<br>
+		</br>
+		<!--submit button for keyword search-->
+		<div><center>
+			<button class="button buttonSub" name="keywordSubmit" id = "keywordSub" type="submit" title="SEARCH">SEARCH</button>
+		</center></div>
+		</form>
+		<br>
+		</br>
+
+		<!--containers for classes display-->
+		<!--first two containers are in one row so we are putting in the same class-->
+		<div class="req" id="target" >	
+			<div class="container">
+				<h3><center>Required Courses Taken:</center></h3>
+				{% for course in taken %}
+					<p>{{course}}</p>
+				{% endfor %}
+			</div>	
+			<div class="container">
+				<h3><center>Required Courses Remaining:</center></h3>
+				{% for course in remaining %}
+					<p>{{course}}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<!--last container is on its own-->
+		<div class="electives" id="target">
+			<div class="container">
+				<h3><center>Electives for You:</center></h3>
+				{% for course in electivesAvailable %}
+					<p>{{course}}</p>
+				{% endfor %}
+			</div>
+	</body>
+</html>
+
+<style>
+html, body{
+  	padding: 0;
+    margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6,strong{
+  color: var(--mainText); 
+  font-family: 'Russo One', sans-serif;
+  font-weight: 500;
+}
+
+p,li,span,label,input,textarea{
+  color: var(--secondaryText); 
+  font-family: 'Roboto Mono', monospace;
+  font-size: 20px;
+}
+
+.button {
+	background-color: #A9BD93; /* SAGE Green */
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	border-radius: 5px  5px 5px 5px; /
+	transition-duration: 0.4s;
+	cursor: pointer;
+}
+
+.buttonSub {
+	background-color: white; 
+	color: black; 
+	border: 2px solid #A9BD93;
+}
+
+.buttonSub:hover {
+	background-color: #A9BD93;
+	color: white;
+}
+
+.req{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 400px);
+  gap:50px;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.electives{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 600px);
+	justify-content: center;
+	padding-bottom: 50px;
+}
+
+.container{
+	border:1px solid var(--borderColor);
+	--webkit-box-shadow: -2px 7px 21px -9px rgba(0,0,0.75);
+	-moz-box-shadow: -2px 7px 21px -9px rgba(0,0,0,0.75);
+	box-shadow: -2px 7px 21px -9px rgba(0,0,0,0.75);
+}
+
+
+#mySidenav a {
+	position: absolute; 
+	right: -80px; 
+	transition: 0.3s; 
+	padding: 15px; 
+	width: 100px; 
+	text-decoration: none; 
+	font-size: 20px; /* Increase font size */
+	color: white; /* White text color */
+	border-radius: 5px  0px 0px 5px; /* Rounded corners on the top left and bottom left side */
+}
+
+#mySidenav a:hover {
+	right: 0; /* On mouse-over, make the elements appear as they should */
+}
+
+#about {
+	top: 20px;
+	background-color: #A9BD93; /* SAGE GREEN */
+}
+
+#creators {
+	top: 80px;
+	background-color: #A9BD93; 
+}
+
+#process {
+	top: 163px;
+	background-color: #A9BD93; 
+}
+
+#final {
+	top: 245px;
+	background-color: #A9BD93; 
+}
+
+
+
+
+</style>
