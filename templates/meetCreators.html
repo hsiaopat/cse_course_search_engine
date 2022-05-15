@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Creators!</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Russo+One&display=swap" rel="stylesheet">
+	</head>
+
+
+	<body>
+		<div class="greeting wrapper">
+			<h1><center>Meet the Creators!</center></h1>	
+		</div>
+
+		<div id="mySidenav" class="sidenav">
+			<a href="../templates/index.html" id="Home">Home</a>
+			<a href="../templates/about.html" id="creators">About</a>
+			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="process">Project Process</a>
+			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="final">Final Article</a>
+		</div>
+	
+	<div class="row">
+  		<div class="column">
+    		<div class="card">
+      			<img src="../img/brigid" alt="bburns4" style="width:100%">
+      				<div class="container">
+        				<h2>Brigid Burns</h2>
+        				<p class="title">Computer Science Student, ND 2024 </p>
+        				<p></p>
+        				<p>jane@example.com</p>
+        				<p><button class="button">Contact</button></p>
+      				</div>
+    		</div>
+  		</div>
+
+  		<div class="column">
+    		<div class="card">
+		    	<img src="../img/andrew" alt="ahenness" style="width:100%">
+      				<div class="container">
+        				<h2>Andrew Hennessee</h2>
+        				<p class="title">Copmuter Science Student, ND 2024</p>
+        				<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+        				<p>mike@example.com</p>
+        				<p><button class="button">Contact</button></p>
+      				</div>
+    		</div>
+  		</div>
+
+  		<div class="column">
+    		<div class="card">
+		    	<img src="../img/patrick" alt="phsiao" style="width:100%">
+      				<div class="container">
+        				<h2>Patrick Hsiao</h2>
+        				<p class="title">Computer Science Student, ND 2024</p>
+        				<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+        				<p>mike@example.com</p>
+        				<p><button class="button">Contact</button></p>
+      				</div>
+    		</div>
+  		</div>
+
+  		<div class="column">
+    		<div class="card">
+		    	<img src="../img/anna" alt="amuller22" style="width:100%">
+      				<div class="container">
+        				<h2>Anna Muller</h2>
+        				<p class="title">Computer Science Student, ND 2024</p>
+        				<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+        				<p>mike@example.com</p>
+        				<p><button class="button">Contact</button></p>
+      				</div>
+    		</div>
+  		</div>
+	</div>
+
+<style>
+
+h1,h2,h3,h4,h5,h6,strong{
+  color: var(--mainText);
+  font-family: 'Russo One', sans-serif;
+  font-weight: 500;
+}
+
+p,li,span,label,input,textarea{
+  color: var(--secondaryText);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+#mySidenav a {
+	position: absolute; 
+	right: -80px; 
+	transition: 0.3s; 
+	padding: 15px; 
+	width: 100px; 
+	text-decoration: none; 
+	font-size: 20px; /* Increase font size */
+	color: white; /* White text color */
+	border-radius: 5px  0px 0px 5px; /* Rounded corners on the top left and bottom left side */
+}
+
+#mySidenav a:hover {
+	right: 0; /* On mouse-over, make the elements appear as they should */
+}
+
+#about {
+	top: 20px;
+	background-color: #A9BD93; /* SAGE GREEN */
+}
+
+#creators {
+	top: 80px;
+	background-color: #A9BD93; 
+}
+
+#process {
+	top: 163px;
+	background-color: #A9BD93; 
+}
+
+#final {
+	top: 245px;
+	background-color: #A9BD93; 
+}
+
+
+
+
+</style>
