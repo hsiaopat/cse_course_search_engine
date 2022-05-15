@@ -1,7 +1,7 @@
 # cse_course_search_engine
 
 A streamlined search engine that funnels the functions of PATH class search and Graduation Progress System all into one website. Enter in the classes you've taken, your major, and keyword searches for specific classes. 
-Leave the rest to us!
+We'll display your major track and elective classes that fit you!
  ---
 ## Visit Site
 
@@ -19,7 +19,7 @@ Enter more info about how we did this backend and frontend and building database
 5. Flask
 
 ## Team
-1. Patrick Hsiao ; Computer Engineering Student, ND'24
-2. Andrew Hennessee ; Computer Science Student, ND'24
-3. Anna Muller ; Computer Science Student, ND'24
-4. Brigid Burns ; Computer Science Student, ND'24
+1. Patrick Hsiao ~ Computer Engineering Student, ND'24
+2. Andrew Hennessee ~ Computer Science Student, ND'24
+3. Anna Muller ~ Computer Science Student, ND'24
+4. Brigid Burns ~ Computer Science Student, ND'24
