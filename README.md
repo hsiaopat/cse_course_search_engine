@@ -19,7 +19,7 @@ Enter more info about how we did this backend and frontend and building database
 5. Flask
 
 ## Team
-1. Patrick Hsiao ~ Computer Engineering Student, ND'24
+1. Patrick Hsiao ~ Computer Science Student, ND'24
 2. Andrew Hennessee ~ Computer Science Student, ND'24
 3. Anna Muller ~ Computer Science Student, ND'24
 4. Brigid Burns ~ Computer Science Student, ND'24
