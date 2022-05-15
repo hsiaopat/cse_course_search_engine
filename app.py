@@ -198,3 +198,11 @@ def index():
 		electives = findElectives(courseInput, keywordInput, cseColl, takenDict)
 
 	return render_template("index.html", taken=requiredTaken, remaining=requiredRemaining, electivesAvailable=electives)
+
+
+@app.route("/meetCreator",methods=["POST","GET"])
+def meetCreators():
+	if request.method == "GET": # GET request is sent when html wants some information from the python script
+		return render_template("meetCreators.html", showMeetCreators = 0)
+	if request.method == "POST":
+		return render_template("meetCreators.html", brigid = "brigid.jpg", andrew = "andrew.jpeg", patrick = "patrick.JPG", anna = "anna.jpeg", showMeetCreators = 1)
