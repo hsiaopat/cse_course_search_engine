@@ -9,7 +9,7 @@ app = Flask(__name__)
 # retrieve info from database
 def retrieveDB():
 	# make request
-	client = pymongo.MongoClient("mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
+	client = pymongo.MongoClient("mongodb://hsiaopat:Aerodynamicfeathers7@hsiaoer-of-pattys-shard-00-00.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-01.qdmrj.mongodb.net:27017,hsiaoer-of-pattys-shard-00-02.qdmrj.mongodb.net:27017/?ssl=true&replicaSet=atlas-pyw8am-shard-0&authSource=admin&retryWrites=true&w=majority")
 	# access database
 	cseDB = client["cse_courses"]
 	# access collection
@@ -200,9 +200,8 @@ def index():
 	return render_template("index.html", taken=requiredTaken, remaining=requiredRemaining, electivesAvailable=electives)
 
 
-@app.route("/meetCreator",methods=["POST","GET"])
+@app.route("/meetCreator",methods=["GET"])
 def meetCreators():
 	if request.method == "GET": # GET request is sent when html wants some information from the python script
-		return render_template("meetCreators.html", showMeetCreators = 0)
-	if request.method == "POST":
-		return render_template("meetCreators.html", brigid = "brigid.jpg", andrew = "andrew.jpeg", patrick = "patrick.JPG", anna = "anna.jpeg", showMeetCreators = 1)
+		return render_template("meetCreators.html", showMeetCreators = 1)
+
